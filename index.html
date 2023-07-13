@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta content="yes" name="apple-mobile-web-app-capable" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./style.css">   
+  <title>My links</title>
+</head>
+<body>
+    <div id="transparentbgScript" class="Transparentbg"></div>
+    <div id="containerScript" class="container">
+      <div class="info_container">
+        <img class="icon" src="./media/ava.webp">
+        <h2 class="name">Yopblip</h2>
+      </div>
+      <h4 class="margin-top-2" style="text-align: center;">My social networks</h4>
+      <div class="links-container">
+        <br>
+        <a href="https://www.deviantart.com/yopblip" class="button_link" target="_blank"><img class="DeviantIconStyles" src="../media/icons/DeviantArtIcon.svg"/> DeviantArt</a>
+        <br>
+        <a href="https://www.instagram.com/yopblip3d/" class="button_link" target="_blank"><img class="InstagramIconStyles" src="../media/icons/InstagramIcon.svg"/>Instagram</a>
+        <br>
+        <a href="https://twitter.com/yopblip3d" class="button_link" target="_blank"><img class="TwitterIconStyles" src="../media/icons/TwiterIcon.svg"/>Twitter</a>
+        <br>
+        <a href="https://www.pinterest.com/Yopblip3d/" class="button_link" target="_blank"><img class="PinterestIconStyles" src="../media/icons/PinterestIcon.svg"/>Pinterest</a>
+        <br>
+        <a href="https://www.twitch.tv/yopblip" class="button_link" target="_blank"><img class="TwitchIconStyles" src="../media/icons/twitchIcon.svg"/>Twitch</a>
+        <br>
+
+        <a href="https://www.tiktok.com/@yopblip" class="button_link" target="_blank"><img class="TikTokIconStyles" src="../media/icons/TikTokIcon.svg"/>Tik tok</a>
+        <br>
+        <a href="https://www.tiktok.com/@yopblip_3d" class="button_link button_link_last" target="_blank"><img class="LastTikTokIconStyles" src="../media/icons/TikTokIcon.svg"/>Tik tok (My 2nd account)</a>
+        <br>        
+        <a href="https://www.discord.gg/JfaEXPf8Zb" class="button_link" target="_blank"><img class="DiscordIconStyles" src="../media/icons/discordIcon.svg"/>Discord server</a>
+        <br>
+    </div>
+    </div>
+    <button id="showHideBtnScript" class="ShowHideBtn">Hide Links</button>
+    <div></div>
+    <div id="loader">
+      <div class="loaderAnimation">
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+      </div>
+      <h2 class="loadingtext">Loading</h2>
+      
+    </div>
+    <canvas id="ThreeDimensionBackgroundWrapper"></canvas>
+</body>
+
+<script type="importmap">
+  {
+    "imports": {
+      "three": "https://threejs.org/build/three.module.js",
+      "three/": "https://threejs.org/examples/jsm/"
+    }
+  }
+  </script>
+
+<script type="module" src="/main.js"></script>
+
+
+<script>
+  var isHidden = false;
+  document.getElementById("showHideBtnScript").addEventListener("click", function() {
+    if (!isHidden) {
+      document.getElementById("transparentbgScript").classList.add("hidden");
+      document.getElementById("containerScript").classList.add("hidden");
+      this.innerHTML = "Show Links";
+    } else {
+      document.getElementById("transparentbgScript").classList.remove("hidden");
+      document.getElementById("containerScript").classList.remove("hidden");
+      this.innerHTML = "Hide Links";
+    }
+    isHidden = !isHidden;
+  });
+</script>
+  
+  
+
+</html>
