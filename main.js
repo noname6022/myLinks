@@ -108,13 +108,13 @@ import(GLTFLoader_URL).then(GLTFLoaderModule => {
 
   {
     const gltfLoader = new GLTFLoader();
-    gltfLoader.load('./media/soda.gltf', (gltf) => {
+    gltfLoader.load('media/soda.gltf', (gltf) => {
       const root = gltf.scene;
       const textureLoader = new THREE.TextureLoader();  // Create a TextureLoader instead of a FileLoader
   
       root.traverse((child) => {
         if (child.isMesh) {
-          textureLoader.load('./media/soda.bin', function (texture) {
+          textureLoader.load('media/soda.bin', function (texture) {
             texture.minFilter = THREE.LinearFilter; 
             child.material.map = texture;
             child.material.needsUpdate = true;
