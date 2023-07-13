@@ -1,178 +1,88 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta content="yes" name="apple-mobile-web-app-capable" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/paper.js/0.22/paper.js"></script>
-<link rel="stylesheet" href="./style.css">   
-<title>My links</title>
-  </head>  <link rel="stylesheet" href=".style.css">
-  <script type="text/javascript" src="./paper-full.js"></script>
-  <script type="text/paperscript" canvas="canvas">
-
-  function Ball(r, p, v) {
-      this.radius = r;
-      this.point = p;
-      this.vector = v;
-      this.maxVec = 15;
-      this.numSegment = Math.floor(r / 3 + 2);
-      this.boundOffset = [];
-      this.boundOffsetBuff = [];
-      this.sidePoints = [];
-      this.path = new Path({
-          fillColor: {
-              hue: Math.random() * 360,
-              saturation: 1,
-              brightness: 1
-          },
-          blendMode: 'lighter'
-      });
-
-      for (var i = 0; i < this.numSegment; i ++) {
-          this.boundOffset.push(this.radius);
-          this.boundOffsetBuff.push(this.radius);
-          this.path.add(new Point());
-          this.sidePoints.push(new Point({
-              angle: 360 / this.numSegment * i,
-              length: 1
-          }));
-      }
-  }
-
-  Ball.prototype = {
-      iterate: function() {
-          this.checkBorders();
-          if (this.vector.length > this.maxVec)
-              this.vector.length = this.maxVec;
-          this.point += this.vector;
-          this.updateShape();
-      },
-
-      checkBorders: function() {
-          var size = view.size;
-          if (this.point.x < -this.radius)
-              this.point.x = size.width + this.radius;
-          if (this.point.x > size.width + this.radius)
-              this.point.x = -this.radius;
-          if (this.point.y < -this.radius)
-              this.point.y = size.height + this.radius;
-          if (this.point.y > size.height + this.radius)
-              this.point.y = -this.radius;
-      },
-
-      updateShape: function() {
-          var segments = this.path.segments;
-          for (var i = 0; i < this.numSegment; i ++)
-              segments[i].point = this.getSidePoint(i);
-
-          this.path.smooth();
-          for (var i = 0; i < this.numSegment; i ++) {
-              if (this.boundOffset[i] < this.radius / 4)
-                  this.boundOffset[i] = this.radius / 4;
-              var next = (i + 1) % this.numSegment;
-              var prev = (i > 0) ? i - 1 : this.numSegment - 1;
-              var offset = this.boundOffset[i];
-              offset += (this.radius - offset) / 15;
-              offset += ((this.boundOffset[next] + this.boundOffset[prev]) / 2 - offset) / 3;
-              this.boundOffsetBuff[i] = this.boundOffset[i] = offset;
-          }
-      },
-
-      react: function(b) {
-          var dist = this.point.getDistance(b.point);
-          if (dist < this.radius + b.radius && dist != 0) {
-              var overlap = this.radius + b.radius - dist;
-              var direc = (this.point - b.point).normalize(overlap * 0.015);
-              this.vector += direc;
-              b.vector -= direc;
-
-              this.calcBounds(b);
-              b.calcBounds(this);
-              this.updateBounds();
-              b.updateBounds();
-          }
-      },
-
-      getBoundOffset: function(b) {
-          var diff = this.point - b;
-          var angle = (diff.angle + 180) % 360;
-          return this.boundOffset[Math.floor(angle / 360 * this.boundOffset.length)];
-      },
-
-      calcBounds: function(b) {
-          for (var i = 0; i < this.numSegment; i ++) {
-              var tp = this.getSidePoint(i);
-              var bLen = b.getBoundOffset(tp);
-              var td = tp.getDistance(b.point);
-              if (td < bLen) {
-                  this.boundOffsetBuff[i] -= (bLen  - td) / 2;
-              }
-          }
-      },
-
-      getSidePoint: function(index) {
-          return this.point + this.sidePoints[index] * this.boundOffset[index];
-      },
-
-      updateBounds: function() {
-          for (var i = 0; i < this.numSegment; i ++)
-              this.boundOffset[i] = this.boundOffsetBuff[i];
-      }
-  };
-
-  //--------------------- main ---------------------
-
-  var balls = [];
-  var numBalls = 18;
-  for (var i = 0; i < numBalls; i++) {
-      var position = Point.random() * view.size;
-      var vector = new Point({
-          angle: 360 * Math.random(),
-          length: Math.random() * 10
-      });
-      var radius = Math.random() * 60 + 60;
-      balls.push(new Ball(radius, position, vector));
-  }
-
-  function onFrame() {
-      for (var i = 0; i < balls.length - 1; i++) {
-          for (var j = i + 1; j < balls.length; j++) {
-              balls[i].react(balls[j]);
-          }
-      }
-      for (var i = 0, l = balls.length; i < l; i++) {
-          balls[i].iterate();
-      }
-  }
-
-  </script>
-  <body>
-    <canvas id="canvas" resize hidpi="off" style="background:black"></canvas>
-    <div class="container">
+  <meta charset="utf-8" />
+  <meta content="yes" name="apple-mobile-web-app-capable" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./style.css">   
+  <title>My links</title>
+</head>
+<body>
+    <div id="transparentbgScript" class="Transparentbg"></div>
+    <div id="containerScript" class="container">
       <div class="info_container">
-        <img class="icon" src="./media/ava.jpg">
-        <h2 class="name">NoName6022</h2>
+        <img class="icon" src="./media/ava.webp">
+        <h2 class="name">Yopblip</h2>
       </div>
-      <h4 class="margin-top-2" style="text-align: center;">MY SOCIAL NETWORKS</h4>
+      <h4 class="margin-top-2" style="text-align: center;">My social networks</h4>
       <div class="links-container">
         <br>
-        <a href="https://www.deviantart.com/noname6022" class="button_link" target="_blank">DeviantArt</a>
+        <a href="https://www.deviantart.com/yopblip" class="button_link" target="_blank"><img class="DeviantIconStyles" src="../media/icons/DeviantArtIcon.svg"/> DeviantArt</a>
         <br>
-        <a href="https://www.instagram.com/n0.name6022/" class="button_link" target="_blank">Instagram</a>
+        <a href="https://www.instagram.com/yopblip3d/" class="button_link" target="_blank"><img class="InstagramIconStyles" src="../media/icons/InstagramIcon.svg"/>Instagram</a>
         <br>
-        <a href="https://twitter.com/no_name6022" class="button_link" target="_blank">Twitter</a>
+        <a href="https://twitter.com/yopblip3d" class="button_link" target="_blank"><img class="TwitterIconStyles" src="../media/icons/TwiterIcon.svg"/>Twitter</a>
         <br>
-        <a href="https://pinterest.com/Noname6022/" class="button_link" target="_blank">Pinterest</a>
+        <a href="https://www.pinterest.com/Yopblip3d/" class="button_link" target="_blank"><img class="PinterestIconStyles" src="../media/icons/PinterestIcon.svg"/>Pinterest</a>
         <br>
-        <a href="https://www.tiktok.com/@no_name6022" class="button_link" target="_blank">Tik tok</a>
+        <a href="https://www.twitch.tv/yopblip" class="button_link" target="_blank"><img class="TwitchIconStyles" src="../media/icons/twitchIcon.svg"/>Twitch</a>
         <br>
-      </div>
+
+        <a href="https://www.tiktok.com/@yopblip" class="button_link" target="_blank"><img class="TikTokIconStyles" src="../media/icons/TikTokIcon.svg"/>Tik tok</a>
+        <br>
+        <a href="https://www.tiktok.com/@yopblip_3d" class="button_link button_link_last" target="_blank"><img class="LastTikTokIconStyles" src="../media/icons/TikTokIcon.svg"/>Tik tok (My 2nd account)</a>
+        <br>        
+        <a href="https://www.discord.gg/JfaEXPf8Zb" class="button_link" target="_blank"><img class="DiscordIconStyles" src="../media/icons/discordIcon.svg"/>Discord server</a>
+        <br>
     </div>
-  </body>  
+    </div>
+    <button id="showHideBtnScript" class="ShowHideBtn">Hide Links</button>
+    <div></div>
+    <div id="loader">
+      <div class="loaderAnimation">
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+      </div>
+      <h2 class="loadingtext">Loading</h2>
+      
+    </div>
+    <canvas id="ThreeDimensionBackgroundWrapper"></canvas>
+</body>
+
+<script type="importmap">
+  {
+    "imports": {
+      "three": "https://threejs.org/build/three.module.js",
+      "three/": "https://threejs.org/examples/jsm/"
+    }
+  }
+  </script>
+
+<script type="module" src="/main.js"></script>
+
+
+<script>
+  var isHidden = false;
+  document.getElementById("showHideBtnScript").addEventListener("click", function() {
+    if (!isHidden) {
+      document.getElementById("transparentbgScript").classList.add("hidden");
+      document.getElementById("containerScript").classList.add("hidden");
+      this.innerHTML = "Show Links";
+    } else {
+      document.getElementById("transparentbgScript").classList.remove("hidden");
+      document.getElementById("containerScript").classList.remove("hidden");
+      this.innerHTML = "Hide Links";
+    }
+    isHidden = !isHidden;
+  });
+</script>
+  
+  
 
 </html>
