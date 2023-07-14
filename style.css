@@ -14,6 +14,13 @@ body {
     justify-items: center;
     width: 100vw;
     text-align: center;
+    overflow-x: hidden;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+
+body::-webkit-scrollbar {
+  display: none;
 }
 
 @font-face {
@@ -33,14 +40,14 @@ a{
   top: 0;
   left:0;
     width: 100%;
-    height: 100%;
+    height: 123%;
     position: fixed;
 }
 
 .Transparentbg{
   background-color: #d2dbe3b2;
   width: 100%;
-  height: 100vh;
+  height: 123vh;
   position: absolute;
   z-index: -1;
   transition: opacity 0.7s ease-in-out;
@@ -111,11 +118,11 @@ a{
     border-radius: 2vmin;
     background: #a6a6a6;
     width: 18vw;
-    height: 54vmin;
+    height: 60vmin;
     position: absolute;
     row-gap: 0vmin;
     transition: all .2s;
-    grid-template-rows: 1.2vmin 4.5vmin 2vmin 4.5vmin 2vmin 4.5vmin 2vmin 5vmin 2vmin 4.5vmin 2vmin 4.67vmin 1.8vmin 4.5vmin 2vmin;
+    grid-template-rows: 1.2vmin 4.5vmin 2vmin 4.5vmin 2vmin 4.5vmin 2vmin 5vmin 2vmin 4.5vmin 2vmin 4.5vmin 2vmin 4.67vmin 1.8vmin 4.5vmin 2vmin;
   }
    
   
@@ -202,6 +209,13 @@ height: 4vmin;
 
 }    
 
+.KofiIconStyles{
+  margin-left: -0.2vw;
+  margin-right: 0.7vw;
+  width: 2.2vw;
+  height: 3vmin;
+}
+
 
 
 
@@ -253,12 +267,12 @@ height: 4vmin;
   justify-content: center;
   align-content: center;
   transition: top 3s;
-  animation: slideUp 3s 5.4s forwards;
+  animation: slideUp 5s 5.4s forwards;
 }
 
 @keyframes slideUp {
   0%   {top: 0vmin;}
-  100% {top: -100vmin; display: none;}
+  100% {top: -400vmin; display: none;}
 }
 
 
@@ -404,13 +418,13 @@ user-select: none;
     border-radius: 5vmin;
     background: #a6a6a6;
     width: 66vw;
-    height: 119vmin;
+    height: 133vmin;
     position: absolute;
     border-left: hidden;
     margin-right: 5.8vw;
     row-gap: 0vmin;
     transition: all .2s;
-    grid-template-rows: 2.2vmin 12.5vmin 2vmin 12.5vmin 2vmin 12.2vmin 2vmin 10vmin 4.5vmin 5.5vmin 9.2vmin 5.5vmin 9.2vmin 5.5vmin 9.2vmin;
+    grid-template-rows: 2.2vmin 12.5vmin 2vmin 12.5vmin 2vmin 12.2vmin 2vmin 10vmin 4.5vmin 5.5vmin 9.2vmin 5.5vmin  9.2vmin 5.5vmin 9.2vmin 5.5vmin 9.2vmin;
     left: 18vw;
     margin-left: 0;
 }
@@ -496,6 +510,13 @@ user-select: none;
   height: 8vmin;
 }
 
+.KofiIconStyles{
+  margin-left: 1.1vw;
+  margin-right: 2vw;
+  width: 8.2vw;
+  height: 8vmin;
+}
+
 .ShowHideBtn {
   bottom: 0;
   background-color: #d2dbe3;
@@ -509,7 +530,7 @@ user-select: none;
   padding-left: 11vw;
   font-size: 6.5vw;
   position: absolute;
-  top: 218vmin;
+  top: 228vmin;
   left: -6.7vw;
   cursor: pointer;
   border: 0.7vmin solid black;
